@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Camellia Hua">
+
+
+
+
+
+<title>Introduction to Azure OpenAI Service | CAMELLIA</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Camellia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Camellia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Introduction to Azure OpenAI Service</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Camellia Hua</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 12, 2023&nbsp;&nbsp;22:58:17</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/OpenAI/">OpenAI</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><h3 id="Artificial-Intelligence"><a href="#Artificial-Intelligence" class="headerlink" title="Artificial Intelligence"></a>Artificial Intelligence</h3><p>Artificial Intelligence imitates human behavior by relying on machines to learn and execute tasks without explicit directions on what to output.</p>
+<h3 id="Machine-learning"><a href="#Machine-learning" class="headerlink" title="Machine learning"></a>Machine learning</h3><p>Machine learning algorithms take in data like weather conditions and fix models to the data, to make predictions like how much money a store might make in a given day.</p>
+<h3 id="Deep-learning"><a href="#Deep-learning" class="headerlink" title="Deep learning"></a>Deep learning</h3><p>Deep learning models use layers of algorithms in the form of artificial neural networks to return results for more complex use cases. Many Azure AI services are built on deep learning models. Check this artical to find <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/machine-learning/concept-deep-learning-vs-machine-learning?view=azureml-api-2">Difference between machine learning and deep learning</a>.</p>
+<h3 id="Generative-AI"><a href="#Generative-AI" class="headerlink" title="Generative AI"></a>Generative AI</h3><p>Generative AI models can produce new content based on what is described in input. The OpenAI models are a collection of generative AI models that can produce language, code and image.</p>
+<div class="image-box">
+                <img src="/image/whatIsGenerativeAI.png" alt="" title="" class="">
+                <p class="image-box-title"></p>
+            </div>
+
+<h3 id="AI-Models"><a href="#AI-Models" class="headerlink" title="AI Models"></a>AI Models</h3><p><strong>GPT-4</strong> models that represent the latest generative models for natural language and code.</p>
+<p><strong>GPT-3.5</strong> models that can generate natural language and code responses based on prompts.</p>
+<p><strong>Embeddings</strong> models that convert text to numeric vectors for analysis - for example comparing sources of text for similarity.</p>
+<p><strong>DALL-E</strong> models that generate images based on natural language descriptions.</p>
+<p>Artical: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/fine-tuning?pivots=programming-language-studio?azure-portal=true">fine-tuning your model</a></p>
+<h2 id="OpenAI’s-natural-language-capabilities"><a href="#OpenAI’s-natural-language-capabilities" class="headerlink" title="OpenAI’s natural language capabilities:"></a>OpenAI’s natural language capabilities:</h2><p>Azure OpenAI’s natural language models are able to take in natural language and generate responses.</p>
+<p>Natural language learning models are trained on words or chunks of characters known as <strong>tokens</strong>. For example, the word “hamburger” gets broken up into the tokens <code>ham</code>, <code>bur</code>, and <code>ger</code>, while a short and common word like “pear” is a single token. These tokens are mapped into vectors for a machine learning model to use for training. When a trained natural language models takes in a user’s input, it also breaks down the input into tokens.</p>
+<p>Generative pre-trained transformer (GPT) models are excellent at both understanding and creating natural language.</p>
+<h2 id="OpenAI-code-generation-capabilities"><a href="#OpenAI-code-generation-capabilities" class="headerlink" title="OpenAI code generation capabilities:"></a>OpenAI code generation capabilities:</h2><p>GPT models are able to take natural language or code snippets and translate them into code. The OpenAI GPT models are proficient in over a dozen languages, such as C#, JavaScript, Perl, PHP, and is most capable in Python.</p>
+<h3 id="GitHub-Copilot"><a href="#GitHub-Copilot" class="headerlink" title="GitHub Copilot"></a>GitHub Copilot</h3><p>OpenAI partnered with GitHub to create GitHub Copilot, which they call an AI pair programmer. GitHub Copilot integrates the power of OpenAI Codex into a plugin for developer environments like Visual Studio Code.</p>
+<p>OpenAI partnered with GitHub to create GitHub Copilot, which they call an AI pair programmer. GitHub Copilot integrates the power of OpenAI Codex into a plugin for developer environments like Visual Studio Code.</p>
+<h2 id="OpenAI-image-generation-capabilities"><a href="#OpenAI-image-generation-capabilities" class="headerlink" title="OpenAI image generation capabilities:"></a>OpenAI image generation capabilities:</h2><h3 id="DALL-E"><a href="#DALL-E" class="headerlink" title="DALL-E"></a>DALL-E</h3><p>In addition to natural language capabilities, generative AI models can edit and create images. The model that works with images is called DALL-E. Much like GPT models, subsequent versions of DALL-E are appended onto the name, such as DALL-E 2. Image capabilities generally fall into the three categories of image creation, editing an image, and creating variations of an image.</p>
+<h2 id="ChatGPT-3-vs-ChatGPT-4"><a href="#ChatGPT-3-vs-ChatGPT-4" class="headerlink" title="ChatGPT 3 vs ChatGPT 4"></a>ChatGPT 3 vs ChatGPT 4</h2><p>ChatGPT 3 and ChatGPT 4 are both AI chatbots that use GPT’s language model to interact with humans in a conversational way.</p>
+<p>However, they have some differences:</p>
+<ul>
+<li><strong>ChatGPT-3</strong> is a <strong>text-to-text</strong> model that takes in only text inputs, whereas ChatGPT-4 has expended its capabilities to take <strong>images</strong>, in addition to text.</li>
+<li><strong>ChatGPT-4</strong> is much larger model than ChatGPT-3, with <strong>10 times</strong> the number of parameters. This means that ChatGPT-4 has the potential to generate more fluent, coherent, and diverse responses than ChatGPT-3. It <strong>can handle more complex and nuanced language tasks</strong> and potentially generate more creative and original content.</li>
+<li><strong>ChatGPT-4</strong> is also smarter, can handle longer prompts and conversations, and doesn’t make as many factual errors as ChatGPT-3. However, <strong>ChatGPT-3 is faster in generating responses</strong> and doesn’t come with the hourly prompt restrictions ChatGPT-4 does.</li>
+</ul>
+<hr>
+<h4 id="Reference-Introduction-to-Azure-OpenAI-Service"><a href="#Reference-Introduction-to-Azure-OpenAI-Service" class="headerlink" title="Reference - Introduction to Azure OpenAI Service"></a>Reference - <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/training/modules/explore-azure-openai/?wt.mc_id=build23_learnlive_collection_azuremktg_DIS02">Introduction to Azure OpenAI Service</a></h4>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Camellia Hua</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://camelliahua.github.io/2023/09/12/openAI_001/">https://camelliahua.github.io/2023/09/12/openAI_001/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/OpenAI/"># OpenAI</a>
+                    
+                        <a href="/tags/ChatGPT/"># ChatGPT</a>
+                    
+                        <a href="/tags/Azure/"># Azure</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+  <div class="copyright">
+    <span>© Camellia Hua</span>
+  </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
